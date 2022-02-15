@@ -37,4 +37,10 @@ class Image {
         // Effectue une série de tests vérifiant que le module fonctionne et
         // que les données membres de l'objet sont conformes
         void testRegression();
+
+        void sauver(const string filename) const;
+
+        void ouvrir(const string filename);
+
+        void afficherConsole();
 };
