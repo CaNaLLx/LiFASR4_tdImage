@@ -1,4 +1,5 @@
 #include "Pixel.h"
+#include <string>
 
 class Image {
     private:

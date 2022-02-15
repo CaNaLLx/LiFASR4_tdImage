@@ -1,6 +1,5 @@
-#include <assert.h>
-#include <string.h>
 #include <iostream>
+#include <fstream>
 #include "Image.h"
 
 using namespace std;
@@ -58,22 +57,22 @@ void Image::testRegression() {
     effacer(blanc);
 }
 
-void Image::sauver(const string filename) const {
+void Image::sauver(const std::string & filename) const {
     ofstream fichier (filename.c_str());
     assert(fichier.is_open());
     fichier << "P3" << endl;
     fichier << dimx << " " << dimy << endl;
     fichier << "255" << endl;
-    for(unsigned int y=0; y<dimy; ++y)
-        for(unsigned int x=0; x<dimx; ++x) {
+    for(unsigned int y=0; y<dimy; y++)
+        for(unsigned int x=0; x<dimx; x++) {
             Pixel& pix = getPix(x++,y);
-            fichier << +pix.r << " " << +pix.g << " " << +pix.b << " ";
+            fichier << +pix.getRouge() << " " << +pix.getVert() << " " << +pix.getBleu() << " ";
         }
     cout << "Sauvegarde de l'image " << filename << " ... OK\n";
     fichier.close();
 }
 
-void Image::ouvrir(const string filename) {
+void Image::ouvrir(const std::string & filename) {
     ifstream fichier (filename.c_str());
     assert(fichier.is_open());
 	char r,g,b;
