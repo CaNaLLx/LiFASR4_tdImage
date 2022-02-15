@@ -38,9 +38,9 @@ class Image {
         // que les données membres de l'objet sont conformes
         void testRegression();
 
-        void sauver(const string filename) const;
+        void sauver(const std::string & filename) const;
 
-        void ouvrir(const string filename);
+        void ouvrir(const std::string & filename);
 
         void afficherConsole();
 };
