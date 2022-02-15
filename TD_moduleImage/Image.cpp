@@ -25,7 +25,7 @@ Image::~Image() {
     dimy = 0;
 }
 
-Pixel& Image::getPix(int x, int y) {
+Pixel& Image::getPix(int x, int y) const {
     return tab[y*dimx+x];
 }
 
@@ -63,8 +63,8 @@ void Image::sauver(const std::string & filename) const {
     fichier << "P3" << endl;
     fichier << dimx << " " << dimy << endl;
     fichier << "255" << endl;
-    for(unsigned int y=0; y<dimy; y++)
-        for(unsigned int x=0; x<dimx; x++) {
+    for(unsigned int y=0; y<dimy; ++y)
+        for(unsigned int x=0; x<dimx; ++x) {
             Pixel& pix = getPix(x++,y);
             fichier << +pix.getRouge() << " " << +pix.getVert() << " " << +pix.getBleu() << " ";
         }
