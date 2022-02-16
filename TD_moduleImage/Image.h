@@ -1,5 +1,11 @@
-#include "Pixel.h"
+#include <iostream>
 #include <string>
+#include <assert.h>
+#include <fstream>
+
+#include "Pixel.h"
+
+using namespace std;
 
 class Image {
     private:
@@ -39,9 +45,9 @@ class Image {
         // que les données membres de l'objet sont conformes
         void testRegression();
 
-        void sauver(const std::string & filename) const;
+        void sauver(const string & filename) const;
 
-        void ouvrir(const std::string & filename);
+        void ouvrir(const string & filename);
 
         void afficherConsole();
 };

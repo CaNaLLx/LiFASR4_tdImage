@@ -1,19 +1,15 @@
-#include <iostream>
-#include <fstream>
 #include "Image.h"
-
-using namespace std;
 
 Image::Image() {
     dimx = 0;
     dimy = 0;
+
+    tab = new Pixel[dimx*dimy];
 }
 
 Image::Image(int dimensionX, int dimensionY) {
-    if(true) {
-        dimx = dimensionX;
-        dimy = dimensionY;
-    }
+    dimx = dimensionX;
+    dimy = dimensionY;
 
     tab = new Pixel[dimx*dimy];
 }
@@ -30,7 +26,10 @@ Pixel& Image::getPix(int x, int y) const {
 }
 
 void Image::setPix(int x, int y, Pixel couleur) {
-    getPix(x,y) = couleur;
+    if(x < dimx && y < dimy)
+        getPix(x,y) = couleur;
+    else 
+        cout << "wesh";
 }
 
 void Image::dessinerRectangle(int Xmin, int Ymin, int Xmax, int Ymax, Pixel couleur) {
@@ -47,7 +46,7 @@ void Image::effacer(Pixel couleur) {
 
 void Image::testRegression() {
     Pixel pixel(30, 56,72);
-    Pixel blanc(0,0,0);
+    Pixel blanc(50,0,0);
     dessinerRectangle(0, 0, dimx/2, dimy/2, pixel);
     dessinerRectangle(dimx/2, dimy/2, dimx, dimy, pixel);
     if(getPix(0,0).isPixel(pixel))
@@ -57,22 +56,22 @@ void Image::testRegression() {
     effacer(blanc);
 }
 
-void Image::sauver(const std::string & filename) const {
+void Image::sauver(const string & filename) const {
     ofstream fichier (filename.c_str());
     assert(fichier.is_open());
-    fichier << "P3" << endl;
+    fichier << "P6" << endl;
     fichier << dimx << " " << dimy << endl;
     fichier << "255" << endl;
     for(unsigned int y=0; y<dimy; ++y)
         for(unsigned int x=0; x<dimx; ++x) {
-            Pixel& pix = getPix(x++,y);
+            Pixel &pix = getPix(x++,y);
             fichier << +pix.getRouge() << " " << +pix.getVert() << " " << +pix.getBleu() << " ";
         }
     cout << "Sauvegarde de l'image " << filename << " ... OK\n";
     fichier.close();
 }
 
-void Image::ouvrir(const std::string & filename) {
+void Image::ouvrir(const string & filename) {
     ifstream fichier (filename.c_str());
     assert(fichier.is_open());
 	char r,g,b;
@@ -84,7 +83,7 @@ void Image::ouvrir(const std::string & filename) {
 	tab = new Pixel [dimx*dimy];
     for(unsigned int y=0; y<dimy; ++y)
         for(unsigned int x=0; x<dimx; ++x) {
-            fichier >> r >> b >> g;
+            fichier >> r >> g >> b;
             getPix(x,y).setRouge(r);
             getPix(x,y).setVert(g);
             getPix(x,y).setBleu(b);
